@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+<p>Checking if page is loaded</p>
+<div ng-app="myApp" ng-controller="myCtrl">
+  <a href="/createpdf" class="btn btn-info" role="button">Create PDF</a>
+  <ul>
+    <li ng-repeat="x in myData">
+      {{ x.Tanggal + ', ' + x.NamaPts + ', ' + x.Diagnosis }}
+    </li>
+  </ul>
+</div>
+
+<script>
+  var app = angular.module('myApp',[]);
+  app.controller('myCtrl', function($scope, $http){
+    $http.get("/getlist").then(function(response){
+      $scope.myData = response.data;
+    })
+  })
+</script>
+</body>
+</html>
